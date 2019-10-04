@@ -3,24 +3,32 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAX 3
+#define MAX 4
 
 void ErroR (void);
 
 int main (int argc, char* argv[])
 {   
     char Input[MAX];
-    if (argc > 2)
+    if (argc > 2 || atoi(argv[1]) > 100)
         ErroR();
     if (argv[2] != '\0')
-        fgets(Input,MAX,stdin);
-    else 
-        memcpy(Input , argv[1], MAX -1 );
-    for (int i = 0; i < strlen(Input); i++)
     {
-        if (!isdigit(Input[i]))
+        printf("Enter Percent Value: ");
+        fgets(Input,MAX,stdin);
+        if (atoi(Input) > 100)
             ErroR();
-    } 
+        for (int i = 0; i < strlen(Input); i++)
+            if (isdigit(Input[i]) == 0 && Input[i] != '\n' && Input[i] != '%')
+                ErroR();
+    }
+    else
+    { 
+        memcpy(Input , argv[1], MAX -1 );
+        for (int i = 0; i < strlen(Input); i++)
+            if (isdigit(Input[i]) == 0 && Input[i] != '%')
+                ErroR();
+    }
     //Converter
     int Exact[16] = {0x00};
     int PerCent = atoi(Input);
@@ -47,6 +55,6 @@ int main (int argc, char* argv[])
 
 void ErroR (void)
 {
-    printf("syntax: ./fraction p, or ./fraction");
+    printf("syntax: fraction %%\n");
     exit(1);
 }

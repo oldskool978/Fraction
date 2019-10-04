@@ -50,6 +50,8 @@ int main (int argc, char* argv[])
         }
     if (SimplifiedExact == 0)
         printf("   %i\n------- \n  100\n\n", PerCent);
+    if (argv[2] != '\0')
+        fgetc(stdin);
     return 0;
 }
 

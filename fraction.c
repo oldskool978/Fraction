@@ -1,15 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 3
 
-int main (void)
+int main (int argc, char* argv[])
 {   
     char Input[MAX];
-    fgets(Input,MAX,stdin);
-    
+    if (argc > 2)
+    {
+        printf("syntax: ./fraction n, or ./fraction");
+        return 1;
+    }
+    if (argv[2] != '\0')
+    {
+        fgets(Input,MAX,stdin);
+    }
+    else 
+    {
+        memcpy(Input , argv[1], MAX -1 );
+    }
     //Converter
-    int Exact[10] = {0x00};
+    int Exact[16] = {0x00};
     int PerCent = atoi(Input);
     int ExactCount = 0;
     for (int i = 0; i < PerCent; i++)
